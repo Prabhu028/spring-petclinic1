@@ -1,16 +1,16 @@
 pipeline{
     agent any
     options {
-        timeout (time: 1, unit: 'HOURS')
+        timeout (time: 1, unit: 'HOURS' )
     }
     trigger {
         pollscm ('* * * * *')
     }
     stages {
-        stage('scr') {
-            steps{
-                url:'https://github.com/Prabhu028/spring-petclinic1.git', 
-                branch:'main'
+        stage('gitsc') {
+            steps {
+                git url: 'https://github.com/Prabhu028/spring-petclinic1.git', 
+                    branch: 'main'
             }
         }
         stage('build') {
