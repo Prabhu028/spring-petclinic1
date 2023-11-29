@@ -3,7 +3,7 @@ pipeline{
     options {
         timeout (time: 1, unit: 'HOURS' )
     }
-    trigger {
+    triggers {
         pollscm ('* * * * *')
     }
     stages {
