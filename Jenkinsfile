@@ -1,8 +1,8 @@
 pipeline{
-    agent { label 'MAVEN' }
+    agent { label 'maven' }
     options {
         timeout (time: 30, unit: 'MINUTES' )
-    }
+    }https://github.com/Prabhu028/spring-petclinic1/blob/main/Jenkinsfile
     triggers {
         pollSCM ('* * * * *')
     }
