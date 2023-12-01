@@ -1,8 +1,8 @@
 pipeline{
-    agent { label 'maven' }
+    #agent 
     options {
         timeout (time: 30, unit: 'MINUTES' )
-    }https://github.com/Prabhu028/spring-petclinic1/blob/main/Jenkinsfile
+    }
     triggers {
         pollSCM ('* * * * *')
     }
@@ -15,7 +15,7 @@ pipeline{
         }
         stage('build') {
             steps {
-                sh 'mvn package'
+                sh 'mvn clean package'
                 archiveArtifacts artifacts: '**/spring-petclinic-*.jar'
                 junit testResults: '**/TEST-*.xml'
                 
