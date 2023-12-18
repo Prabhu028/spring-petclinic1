@@ -1,26 +1,38 @@
-pipeline{
-    #agent 
+pipeline {
+    agent any
     options {
-        timeout (time: 30, unit: 'MINUTES' )
+        timeout(time: 30, unit: 'MINUTES')
     }
     triggers {
-        pollSCM ('* * * * *')
+        pollSCM('* * * * *')
+    }
+    tools {
+        maven 'MVN_HOME'
     }
     stages {
-        stage('gitsc') {
+        stage('vcs') {
             steps {
-                git url: 'https://github.com/Prabhu028/spring-petclinic1.git', 
+                git url: 'https://github.com/spring-projects/spring-framework.git',
                     branch: 'main'
             }
         }
-        stage('build') {
+        stage('SonarQube_analysis') {
             steps {
-                sh 'mvn clean package'
-                archiveArtifacts artifacts: '**/spring-petclinic-*.jar'
-                junit testResults: '**/TEST-*.xml'
-                
+
+                // performing sonarqube analysis with "withSonarQubeENV(<Name of Server configured in Jenkins>)"
+                withSonarQubeEnv('SONAR_CLOUD') {
+                // requires SonarQube Scanner for Maven 3.2+
+                sh 'mvn clean package sonar:sonar -Dsonar.organization=Prabhu402'
+                }
             }
         }
 
+
+        stage('reporting_junit') {
+            steps {
+                junit testResults: '**/target/surefire-reports/TEST-*.xml'
+            }
+        }
     }
+
 }
