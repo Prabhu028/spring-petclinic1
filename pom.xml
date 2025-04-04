@@ -178,25 +178,6 @@
           </execution>
         </executions>
       </plugin>
-      <plugin>
-    <groupId>org.jacoco</groupId>
-    <artifactId>jacoco-maven-plugin</artifactId>
-    <version>${jacoco.version}</version>
-    <executions>
-        <execution>
-            <goals>
-                <goal>prepare-agent</goal> <!-- This will add the JaCoCo agent to the test JVM -->
-            </goals>
-        </execution>
-        <execution>
-            <id>report</id>
-            <phase>prepare-package</phase> <!-- Generates the coverage report -->
-            <goals>
-                <goal>report</goal>
-            </goals>
-        </execution>
-    </executions>
-</plugin>
   <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
@@ -212,7 +193,7 @@
         <groupId>org.jacoco</groupId>
         <artifactId>org.jacoco.agent</artifactId>
         <version>0.8.8</version> <!-- Use the latest version -->
-        <scope>test</scope>
+        <scope>runtime</scope>
     </dependency>
 
          <dependency>
@@ -293,21 +274,6 @@
           <failOnUnableToExtractRepoInfo>false</failOnUnableToExtractRepoInfo>
         </configuration>
       </plugin>
-        <plugin>
-            <groupId>org.jacoco</groupId>
-            <artifactId>jacoco-maven-plugin</artifactId>
-            <version>0.8.8</version> <!-- Use the latest version -->
-            <executions>
-                <execution>
-                    <goals>
-                        <goal>prepare-agent</goal> <!-- Prepare the agent to collect coverage data -->
-                        <goal>report</goal> <!-- Generate the report -->
-                    </goals>
-                </execution>
-            </executions>
-        </plugin>
-
-
     </plugins>
   </build>
 
