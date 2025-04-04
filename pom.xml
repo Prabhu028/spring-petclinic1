@@ -28,14 +28,16 @@
     <webjars-font-awesome.version>4.7.0</webjars-font-awesome.version>
 
     <checkstyle.version>10.12.5</checkstyle.version>
-    <jacoco.version>0.8.11</jacoco.version>
     <libsass.version>0.2.29</libsass.version>
     <lifecycle-mapping>1.0.0</lifecycle-mapping>
     <maven-checkstyle.version>3.3.1</maven-checkstyle.version>
     <nohttp-checkstyle.version>0.0.11</nohttp-checkstyle.version>
     <spring-format.version>0.0.40</spring-format.version>
 
-  </properties>
+        
+        <jacoco.version>0.8.8</jacoco.version> <!-- Use latest version -->
+        <sonar.version>3.9.0.2155</sonar.version> <!-- Latest SonarQube plugin version -->
+    </properties>
 
   <dependencies>
     <!-- Spring and Spring Boot dependencies -->
@@ -177,6 +179,25 @@
         </executions>
       </plugin>
       <plugin>
+    <groupId>org.jacoco</groupId>
+    <artifactId>jacoco-maven-plugin</artifactId>
+    <version>${jacoco.version}</version>
+    <executions>
+        <execution>
+            <goals>
+                <goal>prepare-agent</goal> <!-- This will add the JaCoCo agent to the test JVM -->
+            </goals>
+        </execution>
+        <execution>
+            <id>report</id>
+            <phase>prepare-package</phase> <!-- Generates the coverage report -->
+            <goals>
+                <goal>report</goal>
+            </goals>
+        </execution>
+    </executions>
+</plugin>
+  <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>${maven-checkstyle.version}</version>
@@ -186,7 +207,15 @@
             <artifactId>checkstyle</artifactId>
             <version>${checkstyle.version}</version>
           </dependency>
-          <dependency>
+          
+    <dependency>
+        <groupId>org.jacoco</groupId>
+        <artifactId>org.jacoco.agent</artifactId>
+        <version>0.8.8</version> <!-- Use the latest version -->
+        <scope>test</scope>
+    </dependency>
+
+         <dependency>
             <groupId>io.spring.nohttp</groupId>
             <artifactId>nohttp-checkstyle</artifactId>
             <version>${nohttp-checkstyle.version}</version>
@@ -264,6 +293,20 @@
           <failOnUnableToExtractRepoInfo>false</failOnUnableToExtractRepoInfo>
         </configuration>
       </plugin>
+        <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>0.8.8</version> <!-- Use the latest version -->
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>prepare-agent</goal> <!-- Prepare the agent to collect coverage data -->
+                        <goal>report</goal> <!-- Generate the report -->
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+
 
     </plugins>
   </build>
